@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 129px;
+        padding: 0px
+      }
+    </style>
+	<script src="../../static/js/jquery-2.0.2.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+   
+  </head>
+  <body>
+<div style="margin-top: -200px;">
+<p>Click the button to get your coordinates.</p>
+
+<button id="but">Try It</button>
+
+<p id="demo"></p>
+
+  <div id="googleMap" style="display:block;width:622px; height:344px;"></div>
+</div>
+
+ <script>
+var x = document.getElementById("demo");
+var pos = null;
+var lat = null;
+var lon = null;
+
+function getLocation() {
+    if (navigator.geolocation) {
+        
+	navigator.geolocation.getCurrentPosition(showPosition, showError);
+		
+	navigator.geolocation.getCurrentPosition(function(position) {
+	pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+	lat = position.coords.latitude;
+	lon = position.coords.longitude;
+									   });
+	navigator.geolocation.getCurrentPosition(initialize, showError);								   
+		
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Accuracy(m): " + position.coords.accuracy;	
+
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+	
+	
+	
+	
+	$(document).ready(function () {
+		$('#but').click(function(){
+		getLocation()
+			mapload();
+		});
+            });
+	
+	var map="";
+    function initialize(position)
+	{
+		var myLatlng = new google.maps.LatLng(lat, lon);
+		var mapProp = {
+		center: new google.maps.LatLng(lat, lon),
+		zoom:15,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	  var marker = new google.maps.Marker({
+		  position: pos,
+		  map: map,
+		  title: 'Hello'
+	  });
+	}
+	
+	function loadScript()
+	{
+	  var script = document.createElement("script");
+	  script.type = "text/javascript";
+	  script.src = "https://maps.googleapis.com/maps/api/js?key=&sensor=false&callback=initialize";
+	  document.body.appendChild(script);
+	}
+  function mapload(){
+		loadScript();
+		
+		window.onload = loadScript;
+		google.maps.event.trigger(map, 'resize');
+		google.maps.event.addListenerOnce(map, 'idle', function() {
+		google.maps.event.trigger(map, 'resize');
+		});
+	}
+			
+    </script>
+  </body>
+    
+</html>
