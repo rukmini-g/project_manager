@@ -1,0 +1,13 @@
+syntax: glob
+*=0.2.0
+*.log
+*.pyc
+**.pyc
+**pyc
+*.db
+*.orig
+*.save
+*.1
+*.gif
+**/apps
+*.DS_Store
