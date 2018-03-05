@@ -22,7 +22,7 @@ import os
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^ticket/', include('ticket.urls')),
+    url(r'^ticket/', include('ticket.urls', namespace='ticket')),
 ]
 
 
