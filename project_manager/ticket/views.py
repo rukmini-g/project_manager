@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
 from .models import Ticket, MileStone
 from django.http import HttpResponse
 
@@ -14,7 +14,7 @@ class DashboardView(TemplateView):
 
 class TicketListView(TemplateView):
     #ticket = Ticket.objects.all()
-    template_name = 'ticket/list.html'
+    template_name = 'ticket/ticket_list.html'
     '''
     context_object_name = 'ticket_list'
     def get_queryset(self):
@@ -27,8 +27,19 @@ class TicketListView(TemplateView):
         return context
 
 # MilestoneListView
-class TicketDetailView(TicketListView):
-    ticket = Ticket.objects.filter()
+class TicketDetailView(TemplateView):
+    template_name = 'ticket/detail_user.html'
+    # detail_list = MileStone.objects.all()
+
+    def get_context_data(self, **kwargs):
+        #ticket_id = kwargs.get("ticket_id")
+        context = super(TicketDetailView, self).get_context_data(**kwargs)
+        detail_list = MileStone.objects.all()
+        ticket = Ticket.objects.all()
+        context['ticket'] = detail_list
+        context['detail_list'] = detail_list
+        return context
+
 
 
 

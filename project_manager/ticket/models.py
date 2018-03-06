@@ -34,12 +34,19 @@ class Ticket(TimeStamp):
     def __unicode__(self):
         return "{}".format(self.title)
 
+    def assigned_list(self):
+        usernames = self.assigned_to.values_list('username', flat=True)
+        return ','.join(usernames)
+
 class MileStone(TimeStamp):
 
     ticket = models.ForeignKey(
         'ticket.Ticket', related_name="milestones")
     comment = models.CharField(max_length=500)
     contribution = models.IntegerField(default=0)
-
+    '''
+    hr_spent = models.IntegerField(default=0)
+    user = models.ManyToManyField('auth.User')
+    '''
     def __unicode__(self):
         return "{}".format(self.ticket.title)

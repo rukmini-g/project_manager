@@ -1,0 +1,28 @@
+{% extends "base/base_dashboard.html" %}
+{% block wrapper%}
+{% if detail_list %}
+    <div class="container">
+        <br>
+            {{ticket_id}}
+    </div>
+    <br><br><br><br><br><br><br><br>
+  <tbody>
+  <table class="table table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Ticket</th>
+          <th scope="col">Comments</th>
+          <th scope="col">Contribution</th>
+        </tr>
+        {% for detail in detail_list %}
+        <tr>
+            <td>{{ detail.ticket }}</td>
+            <td>{{detail.comment}}</td>
+            <td>{{detail.contribution}}</td>
+        </tr>
+        {% endfor %}
+
+{% else %}
+    <p>No tickets are available.</p>
+{% endif %}
+{% endblock %}
