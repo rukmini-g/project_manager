@@ -4,7 +4,7 @@ from .models import Ticket, MileStone
 
 class MileStoneInline(admin.TabularInline):
     model = MileStone
-    extra = 3
+    extra = 0
 
 
 class TicketAdmin(admin.ModelAdmin):

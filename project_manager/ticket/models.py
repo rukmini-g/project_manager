@@ -22,6 +22,16 @@ STATUS = (
 )
 
 
+STATE = (
+    (1, "Not Started"),
+    (2,"Dev"),
+    (3,"QA"),
+    (4,"Build"),
+    (5,"Deployment"),
+    (6, "Others")
+)
+
+
 class Ticket(TimeStamp):
 
     ticket_type = models.IntegerField(choices=TICKET_TYPE)
@@ -43,10 +53,9 @@ class MileStone(TimeStamp):
     ticket = models.ForeignKey(
         'ticket.Ticket', related_name="milestones")
     comment = models.CharField(max_length=500)
-    contribution = models.IntegerField(default=0)
-    '''
-    hr_spent = models.IntegerField(default=0)
-    user = models.ManyToManyField('auth.User')
-    '''
+    hr_spent = models.DurationField(default=0)
+    user = models.ForeignKey('auth.User')
+    current_state = models.IntegerField(choices=STATE)
+
     def __unicode__(self):
         return "{}".format(self.ticket.title)

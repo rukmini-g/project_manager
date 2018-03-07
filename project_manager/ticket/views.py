@@ -32,11 +32,11 @@ class TicketDetailView(TemplateView):
     # detail_list = MileStone.objects.all()
 
     def get_context_data(self, **kwargs):
-        #ticket_id = kwargs.get("ticket_id")
+        ticket_id = kwargs.get("ticket_id")
         context = super(TicketDetailView, self).get_context_data(**kwargs)
-        detail_list = MileStone.objects.all()
-        ticket = Ticket.objects.all()
-        context['ticket'] = detail_list
+        detail_list = MileStone.objects.filter(ticket__id=ticket_id)
+        ticket = Ticket.objects.get (pk=ticket_id)
+        context['ticket'] = ticket
         context['detail_list'] = detail_list
         return context
 

@@ -3,7 +3,8 @@
 {% if detail_list %}
     <div class="container">
         <br>
-            {{ticket_id}}
+            {{ticket.title}}
+            {{ticket.assigned_list}}
     </div>
     <br><br><br><br><br><br><br><br>
   <tbody>
@@ -12,13 +13,15 @@
         <tr>
           <th scope="col">Ticket</th>
           <th scope="col">Comments</th>
-          <th scope="col">Contribution</th>
+          <th scope="col">Hr_spent</th>
+          <th scope="col">User</th>
         </tr>
         {% for detail in detail_list %}
         <tr>
             <td>{{ detail.ticket }}</td>
             <td>{{detail.comment}}</td>
-            <td>{{detail.contribution}}</td>
+            <td>{{detail.hr_spent}}</td>
+            <td>{{detail.user}}</td>
         </tr>
         {% endfor %}
 
