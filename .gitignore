@@ -1,0 +1,23 @@
+# JetBrains
+*.iml
+.idea/
+
+# Python modules, setuptools distribution folder, egg metadata.
+*.pyc
+*.swp
+/dist/
+/build/
+*.egg-info
+.eggs/
+.cache/
+
+# Maven
+*target/
+
+# Configuration
+
+# Output files
+*.tsv
+*.csv
+/resources/query.txt
+*.out

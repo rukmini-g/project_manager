@@ -1,0 +1,39 @@
+{% extends "base/base_dashboard.html" %}
+{% block wrapper%}
+{% if ticket_list %}
+  <tbody>
+  <table class="table table-sm">
+      <thead class="thead-dark">
+        <tr>
+           <th scope="col">SlNo.</th>
+          <th scope="col">Task</th>
+          <th scope="col">Process Name</th>
+          <th scope="col">Process Summary</th>
+          <th scope="col">Assign To</th>
+          <th scope="col">Status</th>
+          <th scope="col">More Details</th>
+        </tr>
+      </thead>
+    {% for ticket in ticket_list %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{ ticket.get_ticket_type_display }}</td>
+            <td>{{ticket.title}}</td>
+            <td>{{ticket.description}}</td>
+            <td>{{ticket.assigned_list}}</td>
+            <td>{{ticket.get_status_display}}</td>
+            <td><a href="{% url 'ticket:details' ticket.id %}">more</a></td>
+        </tr>
+      {% endfor %}
+</table>
+  </tbody>
+{% else %}
+                <p>No tickets are available.</p>
+            {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}
