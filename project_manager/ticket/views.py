@@ -13,13 +13,8 @@ class DashboardView(TemplateView):
 
 
 class TicketListView(TemplateView):
-    #ticket = Ticket.objects.all()
     template_name = 'ticket/ticket_list.html'
-    '''
-    context_object_name = 'ticket_list'
-    def get_queryset(self):
-        return Ticket.objects.all ()
-    '''
+
     def get_context_data(self, **kwargs):
         context = super(TicketListView, self).get_context_data(**kwargs)
         ticket_list = Ticket.objects.all ()
@@ -29,7 +24,6 @@ class TicketListView(TemplateView):
 # MilestoneListView
 class TicketDetailView(TemplateView):
     template_name = 'ticket/detail_user.html'
-    # detail_list = MileStone.objects.all()
 
     def get_context_data(self, **kwargs):
         ticket_id = kwargs.get("ticket_id")
