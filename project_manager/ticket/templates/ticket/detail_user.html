@@ -13,12 +13,14 @@
                           <th scope="col">Comments</th>
                           <th scope="col">Hr_spent</th>
                           <th scope="col">User</th>
+                          <th scope="col">Milestone</th>
                         </tr>
                         {% for detail in detail_list %}
                         <tr>
                             <td>{{detail.comment}}</td>
                             <td>{{detail.hr_spent}}</td>
                             <td>{{detail.user}}</td>
+                            <td>{{detail.get_current_state_display}}</td>
                         </tr>
                         {% endfor %}
                       </thead>

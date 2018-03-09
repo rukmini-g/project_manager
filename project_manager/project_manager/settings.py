@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
-    'ticket'
+    'ticket',
+    'crispy_forms'
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 GENERATED_APPS_DIR = os.path.normpath(os.path.join(
     BASE_DIR, 'apps'))

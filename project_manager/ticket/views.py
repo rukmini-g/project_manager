@@ -1,7 +1,9 @@
-from django.views.generic import TemplateView, View, DetailView
+from django.views.generic import TemplateView
 from .models import Ticket, MileStone
-from django.http import HttpResponse
-
+from forms import TaskForm
+from django.core.exceptions import ImproperlyConfigured
+from base.views import GenericModalCreateView
+from django.shortcuts import HttpResponseRedirect
 
 class DashboardView(TemplateView):
 
@@ -19,7 +21,9 @@ class TicketListView(TemplateView):
         context = super(TicketListView, self).get_context_data(**kwargs)
         ticket_list = Ticket.objects.all ()
         context['ticket_list'] = ticket_list
+        context['form'] = TaskForm()
         return context
+
 
 # MilestoneListView
 class TicketDetailView(TemplateView):
@@ -35,10 +39,22 @@ class TicketDetailView(TemplateView):
         return context
 
 
+class TicketCreateView(GenericModalCreateView):
+    form_class = TaskForm
+    success_url = '/ticket/ticket_list/'
+    # permission_required = 'project.add_project'
 
-
-class TicketCreateView():
-    pass
+    '''
+    def form_valid(self, form):
+        instance = form.instance
+        instance.save ()
+        instance_id = instance.id
+        #self.pk_id = instance_id
+        msg = "Succesfully created new {0} {1}".format (
+            self.object_name, form.instance)
+        #messages.success (self.request, msg)
+        return HttpResponseRedirect (self.get_success_url ())
+    '''
 
 
 class MilestoneCreateView():
