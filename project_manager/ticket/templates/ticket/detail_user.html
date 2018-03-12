@@ -29,13 +29,12 @@
             </div>
             <div class="col-md-4">
                 <ul class="list-group">
-                <ul>
-                    <li class="list-group-item">Task name:- {{ticket.title}}</li>
-                    <li class="list-group-item">Users:- {{ticket.assigned_list}}</li>
+                        <li class="list-group-item">Task name:- {{ticket.title}}</li>
+                        <li class="list-group-item">Users:- {{ticket.assigned_list}}</li>
                 </ul>
             </div>
         </div><br><br>
 {% else %}
-    <p>No tickets are available.</p>
+    <p>No details are available.</p>
 {% endif %}
 {% endblock %}

@@ -10,9 +10,6 @@ from django.http import Http404
 
 from django.core.exceptions import ImproperlyConfigured
 
-from project.models import Project
-from project.forms import ProjectForm
-
 import logging
 logger = logging.getLogger(__name__)
 
@@ -22,8 +19,8 @@ class GeneralContextMixin(object):
     def get_context_data(self, **kwargs):
         context = super(GeneralContextMixin, self).get_context_data(**kwargs)
         context["username"] = self.request.user.username
-        context['projects'] = Project.objects.all()
-        context['project_form'] = ProjectForm()
+        # context['projects'] = Project.objects.all()
+        # context['project_form'] = ProjectForm()
         return context
 
 
@@ -210,8 +207,8 @@ class ForActionMixin(object):
     page_url = None
     object_name = None
 
-    def post(self, request, *args, **kwargs):
-        for_action = request.POST.getlist('for_action')
+    def delete(self, request, *args, **kwargs):
+        for_action = request.DELETE.getlist('for_action')
         objects = self.model.objects.filter(pk__in=for_action)
         if len(objects) == 0:
             messages.warning(
