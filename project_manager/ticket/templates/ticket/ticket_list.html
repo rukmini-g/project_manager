@@ -98,31 +98,28 @@
     <!--</script>-->
  <script>
     $(document).ready(function(){
-                $("#del").click(function() {console.log($('input[name="for_action"]:checked'));
-                <!--$.ajax({-->
-                        <!--url : '{% url 'ticket:ticket_list' %}', // the endpoint-->
-                        <!--type : 'DELETE', // http method-->
-                        <!--data : { 'for_action' : $("#assembly :selected").val(),-->
-                                <!--'csrfmiddlewaretoken': '{{csrf_token}}'-->
-                         <!--}, // data sent with the post request-->
+        $("#del").click(function() {
+            var selected = [];
+            $("input:checkbox[name=for_action]:checked").each(function(){
+                selected.push($(this).val());
+            });
+            console.log(selected)
+            $.ajax({
+                        url : '/ticket/ticket_list/', // the endpoint
+                        type : 'PUT', // http method
+                        data : { 'for_action' : "selected",
+                                'csrfmiddlewaretoken': '{{csrf_token}}'
+                         }, // data sent with the post request
 
-                        <!--// handle a successful response-->
-                        <!--success : function(json) {-->
-                            <!--var hf =  JSON.parse(json);-->
-                            <!--$('#component').css({"display" : "block"})-->
-                            <!--$('#subProd').css({"display" : "block"})-->
-                            <!--for(i = 0;i < hf.length;i++){-->
-                              <!--$('#component').append($("<option></option>").val(hf[i].pk).text(hf[i].fields.component_code));-->
-                            <!--}-->
-                        <!--},-->
-
-                    <!--});-->
-
-
-
+                        // handle a successful response
+                        success : function(json) {
+                            var hf =  JSON.parse(json);
+                            console.log(hf)
+                        },
 
                     });
-                });
+        });
+    });
 </script>
 
 {% endblock %}
