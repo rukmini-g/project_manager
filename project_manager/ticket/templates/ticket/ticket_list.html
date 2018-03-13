@@ -1,9 +1,57 @@
 {% extends "base/base_dashboard.html" %}
+{% load crispy_forms_tags %}
     {% block wrapper%}
         {% if ticket_list %}
             <div class="row">
                 <h3><u>Task List</u></h3>
             </div><br><br>
+            <div class="row">
+                <div class="col-md-3">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addapp">Add Field</button><br><br>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-danger"  id="del" >Delete</button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="addapp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                          <span aria-hidden="true">&times;</span>
+                          <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Add Field</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form role='form' action="/ticket/create/" method="post">{% csrf_token %}
+                        <div>
+                          <input type="text" hidden="" value="{{model_obj_id}}" name="model_obj_id" id="model_obj_id">
+                          {{form | crispy}}
+                        </div>
+                      </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button class="btn btn-primary" >Add</button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                </form>
+                <!-- Modal End -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    {% if messages %}
+                         {% for message in messages %}
+                         <div class="alert alert-success" role="alert">
+                          <strong>{{ message }}</strong>
+                        </div>
+                         {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
 
@@ -12,6 +60,7 @@
                               <thead class="thead-dark">
                                   <tr>
                                       <th scope="col">SlNo.</th>
+                                      <th scope="col">Select</th>
                                       <th scope="col">Task</th>
                                       <th scope="col">Process Name</th>
                                       <th scope="col">Process Summary</th>
@@ -23,6 +72,7 @@
                               {% for ticket in ticket_list %}
                                   <tr>
                                       <td>{{forloop.counter}}</td>
+                                      <td><input type="checkbox" value="{{ticket.id}}" name="for_action"></td>
                                       <td>{{ ticket.get_ticket_type_display }}</td>
                                       <td>{{ticket.title}}</td>
                                       <td>{{ticket.description}}</td>
@@ -34,17 +84,45 @@
                         </table>
                     </tbody>
                 </div></div>
-            <div>
-            add
-            </div>
+
         {% else %}
             <p>No tickets are available.</p>
         {% endif %}
 
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script>
-        $("#mytable").dataTable();
-    </script>
+    <!--<script>-->
+        <!--$("#mytable").dataTable();-->
+    <!--</script>-->
+ <script>
+    $(document).ready(function(){
+                $("#del").click(function() {console.log($('input[name="for_action"]:checked'));
+                <!--$.ajax({-->
+                        <!--url : '{% url 'ticket:ticket_list' %}', // the endpoint-->
+                        <!--type : 'DELETE', // http method-->
+                        <!--data : { 'for_action' : $("#assembly :selected").val(),-->
+                                <!--'csrfmiddlewaretoken': '{{csrf_token}}'-->
+                         <!--}, // data sent with the post request-->
+
+                        <!--// handle a successful response-->
+                        <!--success : function(json) {-->
+                            <!--var hf =  JSON.parse(json);-->
+                            <!--$('#component').css({"display" : "block"})-->
+                            <!--$('#subProd').css({"display" : "block"})-->
+                            <!--for(i = 0;i < hf.length;i++){-->
+                              <!--$('#component').append($("<option></option>").val(hf[i].pk).text(hf[i].fields.component_code));-->
+                            <!--}-->
+                        <!--},-->
+
+                    <!--});-->
+
+
+
+
+                    });
+                });
+</script>
+
 {% endblock %}
