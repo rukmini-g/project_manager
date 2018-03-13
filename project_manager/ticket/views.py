@@ -4,7 +4,7 @@ from forms import TaskForm
 from base.views import GenericModalCreateView
 from base.mixin import  GeneralContextMixin, ForActionMixin
 
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, HttpResponse
 
 
 class DashboardView(GeneralContextMixin, TemplateView):
@@ -54,9 +54,12 @@ class TicketCreateView (GenericModalCreateView):
     form_class = TaskForm
     success_url = '/ticket/ticket_list/'
 
-# class Removerecord():
-#     instance = Ticket.objects.get(id=id)
-#     instance.delete()
+def delete_ticket(request):
+    delete_ids = request.GET.getlist('for_action')
+    print delete_ids
+    # tickets = Ticket.objects.filter(id__in=delete_ids )
+
+    return HttpResponse('/ticket/ticket_list')
 '''
 class MilestoneCreateView():
     pass

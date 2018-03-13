@@ -105,16 +105,15 @@
             });
             console.log(selected)
             $.ajax({
-                        url : '/ticket/ticket_list/', // the endpoint
-                        type : 'PUT', // http method
-                        data : { 'for_action' : "selected",
+                        url : '/ticket/delete/', // the endpoint
+                        type : 'GET', // http method
+                        data : { 'for_action' : selected,
                                 'csrfmiddlewaretoken': '{{csrf_token}}'
                          }, // data sent with the post request
 
                         // handle a successful response
                         success : function(json) {
-                            var hf =  JSON.parse(json);
-                            console.log(hf)
+                          alert('object name deleted')
                         },
 
                     });
