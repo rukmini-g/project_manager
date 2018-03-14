@@ -10,6 +10,8 @@ urlpatterns = [
     	views.DashboardView.as_view(), name='dashboard'),
     url(r'^create/$',
         TicketCreateView.as_view(), name='create'),
+    url(r'^update/(?P<ticket_id>[^/]+)/$',
+        TicketUpdateView.as_view(), name='update'),
     url(r'^delete/$',
         delete_ticket, name='delete'),
     url(r'^ticket_list/$',

@@ -3,9 +3,10 @@
     {% block wrapper%}
         {% if ticket_list %}
             <div class="row">
-                <h3><u>Task List</u></h3>
+                <h3>Task List</h3>
             </div><br><br>
             <div class="row">
+<!-- to be checked -->
                 <div class="col-md-3">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#addapp">Add Task</button><br><br>
                 </div>
@@ -41,6 +42,7 @@
                 <!-- Modal End -->
             </div>
             <div class="row">
+<!-- to be checked -->
                 <div class="col-lg-12">
                     {% if messages %}
                          {% for message in messages %}
@@ -51,10 +53,15 @@
                     {% endif %}
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-3">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#addapp">Add Field</button>
+                  <br><br>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
-
+                  <form role='form' name='delete' action="" method="post">{% csrf_token %}
                     <tbody>
                         <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="mytable">
                               <thead class="thead-dark">
@@ -67,6 +74,7 @@
                                       <th scope="col">Assign To</th>
                                       <th scope="col">Status</th>
                                       <th scope="col">More Details</th>
+                                      <th scope="col">Update</th>
                                   </tr>
                               </thead>
                               {% for ticket in ticket_list %}
@@ -79,16 +87,51 @@
                                       <td>{{ticket.assigned_list}}</td>
                                       <td>{{ticket.get_status_display}}</td>
                                       <td><a href="{% url 'ticket:details' ticket.id %}">more</a></td>
+                                      <td><a href="{% url 'ticket:update' ticket.id %}">edit</a></td>
                                   </tr>
                               {% endfor %}
                         </table>
                     </tbody>
-                </div></div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <button class="btn btn-danger" name="delete" id="del" >Delete</button>
+              </div>
+              </form>
+            </div>
 
         {% else %}
             <p>No tasks are available.</p>
         {% endif %}
 
+        <!-- Modal -->
+                <div class="modal fade" id="addapp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                          <span aria-hidden="true">&times;</span>
+                          <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Add Field</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form role='form' action="/ticket/create/" method="post">{% csrf_token %}
+                        <div>
+                          <input type="text" hidden="" value="{{model_obj_id}}" name="model_obj_id" id="model_obj_id">
+                          {{form | crispy}}
+                        </div>
+                      </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button class="btn btn-primary" >Add</button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                </form>
+                <!-- Modal End -->
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -96,7 +139,7 @@
     <!--<script>-->
         <!--$("#mytable").dataTable();-->
     <!--</script>-->
- <script>
+<!--  <script>
     $(document).ready(function(){
         $("#del").click(function() {
             var selected = [];
@@ -105,9 +148,10 @@
             });
             console.log(selected)
             $.ajax({
-                        url : '/ticket/delete/', // the endpoint
-                        type : 'GET', // http method
-                        data : { 'for_action' : selected,
+                        url : '/ticket/ticket_list/', // the endpoint
+                        // type : 'delete', // http method,
+                        headers: { 'X_METHODOVERRIDE': 'DELETE' },
+                        data : { 'for_action' : "selected",
                                 'csrfmiddlewaretoken': '{{csrf_token}}'
                          }, // data sent with the post request
 
@@ -119,6 +163,6 @@
                     });
         });
     });
-</script>
+</script> -->
 
 {% endblock %}
