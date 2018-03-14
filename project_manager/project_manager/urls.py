@@ -20,9 +20,15 @@ from django.contrib import admin
 
 import os
 
+import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ticket/', include('ticket.urls', namespace='ticket')),
+    url(r'^logout/$',
+        'django.contrib.auth.views.logout',
+        {'template_name': 'signin.html'}, name='logout'),
+    url(r'^$', views.login_user, name='login_user'),
 ]
 
 
