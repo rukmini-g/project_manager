@@ -7,7 +7,7 @@
             </div><br><br>
             <div class="row">
                 <div class="col-md-3">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#addapp">Add Field</button><br><br>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addapp">Add Task</button><br><br>
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-danger"  id="del" >Delete</button>
@@ -21,7 +21,7 @@
                           <span aria-hidden="true">&times;</span>
                           <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">Add Field</h4>
+                        <h4 class="modal-title" id="myModalLabel">Add Task</h4>
                       </div>
                       <div class="modal-body">
                         <form role='form' action="/ticket/create/" method="post">{% csrf_token %}
