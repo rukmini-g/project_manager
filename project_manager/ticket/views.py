@@ -4,7 +4,7 @@ from forms import TaskForm
 from base.views import GenericModalCreateView
 from base.mixin import  GeneralContextMixin, DeleteMixin
 
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, HttpResponse
 
 from base.views import GenericModalCreateView, GenericModalUpdateView
 from base.mixin import  GeneralContextMixin, ForActionMixin
@@ -77,13 +77,13 @@ class TicketUpdateView (TemplateView):
         return context
 
 
-
 def delete_ticket(request):
     delete_ids = request.GET.getlist('for_action')
     print delete_ids
     # tickets = Ticket.objects.filter(id__in=delete_ids )
 
     return HttpResponse('/ticket/ticket_list')
+
 
 '''
 class MilestoneCreateView():
