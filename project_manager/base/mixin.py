@@ -49,6 +49,7 @@ class DeleteMixin(object):
     def post(self, request, *args, **kwargs):
         for_action = request.POST.getlist('for_action')
         objects = self.model.objects.filter(pk__in=for_action)
+        print '=================='
         if len(objects) == 0:
             messages.warning(
                 request,
@@ -65,6 +66,7 @@ class DeleteMixin(object):
             return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
+        print self.app_url,'==========APP==========='
         if self.app_url is None and self.page_url is None:
             raise ImproperlyConfigured(
                 "GenericModalCreateView requires either a definition of "

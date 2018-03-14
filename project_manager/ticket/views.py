@@ -6,6 +6,12 @@ from base.mixin import  GeneralContextMixin, DeleteMixin
 
 from django.shortcuts import HttpResponseRedirect
 
+from base.views import GenericModalCreateView, GenericModalUpdateView
+from base.mixin import  GeneralContextMixin, ForActionMixin
+from django.views.generic.edit import UpdateView
+from django.shortcuts import HttpResponseRedirect, HttpResponse
+
+
 
 class DashboardView(GeneralContextMixin, TemplateView):
 
@@ -29,6 +35,7 @@ class TicketListView(DeleteMixin, GeneralContextMixin, TemplateView):
         return context
 
     def get_success_url(self):
+        print 'Inside Tickelist=========='
         return ""
 
 
@@ -50,9 +57,34 @@ class TicketCreateView (GenericModalCreateView):
     form_class = TaskForm
     success_url = '/ticket/ticket_list/'
 
+
 # class Removerecord():
 #     instance = Ticket.objects.get(id=id)
 #     instance.delete()
+
+
+class TicketUpdateView (TemplateView):
+    template_name = 'ticket/update.html'
+    # form_class = TaskForm
+    # success_url = '/ticket/ticket_list/'
+    def get_context_data(self, **kwargs):
+        ticket_id = kwargs.get("ticket_id")
+        context = super(TicketUpdateView, self).get_context_data(**kwargs)
+        update_list = Ticket.objects.filter(ticket__id=ticket_id)
+        ticket = Ticket.objects.get(pk=ticket_id)
+        context['ticket'] = ticket
+        context['update_list'] = update_list
+        return context
+
+
+
+def delete_ticket(request):
+    delete_ids = request.GET.getlist('for_action')
+    print delete_ids
+    # tickets = Ticket.objects.filter(id__in=delete_ids )
+
+    return HttpResponse('/ticket/ticket_list')
+
 '''
 class MilestoneCreateView():
     pass

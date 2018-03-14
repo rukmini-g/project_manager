@@ -3,7 +3,7 @@
     {% block wrapper%}
         {% if ticket_list %}
             <div class="row">
-                <h3><u>Task List</u></h3>
+                <h3>Task List</h3>
             </div><br><br>
             <div class="row">
                 <div class="col-lg-12">
@@ -37,6 +37,7 @@
                                       <th scope="col">Assign To</th>
                                       <th scope="col">Status</th>
                                       <th scope="col">More Details</th>
+                                      <th scope="col">Update</th>
                                   </tr>
                               </thead>
                               {% for ticket in ticket_list %}
@@ -49,6 +50,7 @@
                                       <td>{{ticket.assigned_list}}</td>
                                       <td>{{ticket.get_status_display}}</td>
                                       <td><a href="{% url 'ticket:details' ticket.id %}">more</a></td>
+                                      <td><a href="{% url 'ticket:update' ticket.id %}">edit</a></td>
                                   </tr>
                               {% endfor %}
                         </table>
