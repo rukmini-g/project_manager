@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from .models import Ticket, MileStone
 from forms import TaskForm
 from base.views import GenericModalCreateView
-from base.mixin import  GeneralContextMixin, ForActionMixin
+from base.mixin import  GeneralContextMixin, DeleteMixin
 
 from django.shortcuts import HttpResponseRedirect
 
@@ -16,11 +16,9 @@ class DashboardView(GeneralContextMixin, TemplateView):
 #   return HttpRespose("hello")
 
 
-class TicketListView(ForActionMixin, GeneralContextMixin, TemplateView):
+class TicketListView(DeleteMixin, GeneralContextMixin, TemplateView):
     template_name = 'ticket/ticket_list.html'
     model = Ticket
-    app_url = 'ticket'
-    page_url = 'ticket_list'
     object_name = 'Ticket'
 
     def get_context_data(self, **kwargs):
@@ -30,10 +28,8 @@ class TicketListView(ForActionMixin, GeneralContextMixin, TemplateView):
         context['form'] = TaskForm()
         return context
 
-    def do_action(self, objects):
-        print objects
-        return HttpResponseRedirect(self.get_success_url())
-
+    def get_success_url(self):
+        return ""
 
 
 # MilestoneListView
