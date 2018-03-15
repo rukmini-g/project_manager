@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, render_to_response, HttpResponseRedirect
-from django.template import RequestContext
+from django.shortcuts import render, render_to_response, RequestContext, HttpResponseRedirect
 from django.contrib import messages
 
 
