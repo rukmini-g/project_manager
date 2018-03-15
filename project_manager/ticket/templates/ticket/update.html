@@ -1,24 +1,20 @@
 {% extends "base/base_dashboard.html" %}
 {% load crispy_forms_tags %}
     {% block wrapper%}
-        {% if update_list %}
-            <div class="row">
-                <h3><u>Task List</u></h3>
-            </div><br><br>
+        {% if form %}
             <div class="row">
             <!-- Modal -->
-
                 <div class="modal-body">
-                    <form role='form' action="/ticket/ticket_list/" method="post">{% csrf_token %}
-                        <!--<div>-->
-                            <!--<input type="text" hidden="" value="{{model_obj_id}}" name="model_obj_id" id="model_obj_id">-->
-                            <!--{{form | crispy}}-->
-                        <!--</div>-->
-                    </form>
+                    <form role='form' action="/ticket/update/{{ticket_id}}/" method="post">{% csrf_token %}
+                        <div>
+                            {{form | crispy}}
+                        </div>
                 </div>
-
+                <div class="modal-footer">
+                          <button class="btn btn-primary" >submit</button>
+                </div>
             </div>
-
+            </form>
             <!-- Modal End -->
         {% else %}
             <p>No updates are available.</p>

@@ -159,7 +159,6 @@ class GenericModalCreateView(View):
     success_url = None
     object_name = None
     error_url = None
-    print form_class
 
     def post(self, request, *args, **kwargs):
         """
