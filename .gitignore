@@ -15,9 +15,13 @@
 *target/
 
 # Configuration
+*.ini
 
 # Output files
 *.tsv
 *.csv
 /resources/query.txt
 *.out
+
+# DB-sqlite
+project_manager/db.sqlite3
