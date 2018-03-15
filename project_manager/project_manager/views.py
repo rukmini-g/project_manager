@@ -22,7 +22,7 @@ def login_user(request):
         else:
             messages.warning(
                 request, "Please enter valid username or password")
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect('/')
 
     return render_to_response(
         'signin.html',
