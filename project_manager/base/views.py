@@ -250,9 +250,11 @@ class GenericModalUpdateView(CustomRedirection):
     form_class = None
     object_name = None
     model = None
-
+    print 'inside Update',form_class,object_name,model
     def post(self, request, *args, **kwargs):
+        print 'inside post====='
         obj = self.model.objects.get(pk=self.kwargs.get('pk'))
+        print obj
         form = self.form_class(request.POST, instance=obj)
         if form.is_valid():
             form.save()

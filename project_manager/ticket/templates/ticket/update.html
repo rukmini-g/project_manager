@@ -1,0 +1,22 @@
+{% extends "base/base_dashboard.html" %}
+{% load crispy_forms_tags %}
+    {% block wrapper%}
+        {% if form %}
+            <div class="row">
+            <!-- Modal -->
+                <div class="modal-body">
+                    <form role='form' action="/ticket/update/{{ticket_id}}/" method="post">{% csrf_token %}
+                        <div>
+                            {{form | crispy}}
+                        </div>
+                </div>
+                <div class="modal-footer">
+                          <button class="btn btn-primary" >submit</button>
+                </div>
+            </div>
+            </form>
+            <!-- Modal End -->
+        {% else %}
+            <p>No updates are available.</p>
+        {% endif %}
+{% endblock %}
