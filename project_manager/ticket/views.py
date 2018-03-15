@@ -9,7 +9,7 @@ from django.shortcuts import HttpResponseRedirect
 
 class DashboardView(GeneralContextMixin, TemplateView):
 
-    template_name = 'ticket/dashbord.html'
+    template_name = 'ticket/dashboard.html'
 
 
 # def testing(request):
