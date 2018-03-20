@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^ticket/', include('ticket.urls', namespace='ticket')),
     url(r'^logout/$',
         'django.contrib.auth.views.logout',
-        {'template_name': 'signin.html'}, name='logout'),
+        {'template_name': 'logout.html'}, name='logout'),
     url(r'^$', views.login_user, name='login_user'),
 ]
 
