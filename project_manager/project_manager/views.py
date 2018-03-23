@@ -45,3 +45,21 @@ def user_redirection(request):
         return HttpResponseRedirect ('/')
 
 
+def change_password(request):
+    username = request.user.username
+    if request.method == "POST":
+        if request.POST['password1'] == request.POST['password2']:
+            request.user.set_password(request.POST['password1'])
+            request.user.save()
+            messages.success(
+                request, "Password change successful, Try logging now ")
+            return HttpResponseRedirect("/")
+        else:
+            messages.success(
+                request, "ERROR : Try again  Password did not match")
+            return render(request, 'change_password.html', {
+                'username': username})
+    else:
+        return render(request, 'change_password.html', {
+            'username': username})
+
