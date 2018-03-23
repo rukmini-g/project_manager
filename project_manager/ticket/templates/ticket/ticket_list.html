@@ -31,12 +31,12 @@
                                   <tr>
                                       <th scope="col">SlNo.</th>
                                       <th scope="col">Select</th>
-                                      <th scope="col">Task</th>
-                                      <th scope="col">Process Name</th>
-                                      <th scope="col">Process Summary</th>
+                                      <th scope="col">Task Type</th>
+                                      <th scope="col">Title</th>
+                                      <th scope="col">Description</th>
                                       <th scope="col">Assign To</th>
                                       <th scope="col">Status</th>
-                                      <th scope="col">More Details</th>
+                                      <th scope="col">Action</th>
                                   </tr>
                               </thead>
                               {% for ticket in ticket_list %}
@@ -46,7 +46,7 @@
                                       <td><input type="checkbox" value="{{ticket.id}}" name="for_action"></td>
                                       <td>{{ ticket.get_ticket_type_display }}</td>
                                       <td>{{ticket.title}}</td>
-                                      <td>{{ticket.description}}</td>
+                                      <td>{{ticket.description |truncatechars:20}}</td>
                                       <td>{{ticket.assigned_list}}</td>
                                       <td>{{ticket.get_status_display}}</td>
                                       <td><a href="{% url 'ticket:update_template' ticket.id %}"><i class="fa fa-edit"></i></a></td>
@@ -94,37 +94,5 @@
                 </div>
                 </form>
                 <!-- Modal End -->
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <!--<script>-->
-        <!--$("#mytable").dataTable();-->
-    <!--</script>-->
-<!--  <script>
-    $(document).ready(function(){
-        $("#del").click(function() {
-            var selected = [];
-            $("input:checkbox[name=for_action]:checked").each(function(){
-                selected.push($(this).val());
-            });
-            console.log(selected)
-            $.ajax({
-                        url : '/ticket/ticket_list/', // the endpoint
-                        // type : 'delete', // http method,
-                        headers: { 'X_METHODOVERRIDE': 'DELETE' },
-                        data : { 'for_action' : "selected",
-                                'csrfmiddlewaretoken': '{{csrf_token}}'
-                         }, // data sent with the post request
-
-                        // handle a successful response
-                        success : function(json) {
-                          alert('object name deleted')
-                        },
-
-                    });
-        });
-    });
-</script> -->
 
 {% endblock %}
